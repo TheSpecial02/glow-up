@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glow Up Beauty - Venta de Cosméticos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Material+Icons" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #f5f5f7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(101, 83, 223, 0.6);
+      border-radius: 10px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(101, 83, 223, 0.8);
+    }
+    header {
+      position: sticky;
+      top: 0;
+      height: 72px;
+      background: rgba(30, 12, 72, 0.7);
+      backdrop-filter: saturate(180%) blur(16px);
+      box-shadow: 0 0 15px rgba(101, 83, 223, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 999;
+    }
+    .logo {
+      font-weight: 900;
+      font-size: clamp(1.5rem, 2vw, 2.2rem);
+      letter-spacing: 0.12em;
+      background: linear-gradient(90deg, #d32de6, #09f5e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 28px;
+    }
+    nav a {
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 12px;
+      color: #dededeee;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    nav a:hover,
+    nav a:focus-visible {
+      background-color: #6a11cb;
+      color: #09f5e5;
+      outline-offset: 2px;
+      outline: 2px solid #09f5e5;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      width: 95%;
+      margin: 40px auto 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      outline: none;
+    }
+    .hero-section {
+      padding: 40px;
+      background: linear-gradient(135deg, #471ba3dd, #0d59b2dd);
+      border-radius: 32px;
+      color: #f0e9ff;
+      text-align: center;
+      box-shadow: 0 0 48px #511fd5cc;
+      user-select: none;
+    }
+    .hero-section h1 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.05;
+      text-shadow: 0 0 8px #ce3febcc;
+    }
+    .hero-section p {
+      font-size: 1.15rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.9;
+      margin-bottom: 28px;
+      font-weight: 600;
+      user-select: none;
+    }
+    .btn-shop {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 16px 48px;
+      color: #1f1f30;
+      background: #09f5e5;
+      border-radius: 40px;
+      box-shadow:
+        0 0 14px #09f5e5,
+        0 0 40px #09f5e5aa;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .btn-shop:hover,
+    .btn-shop:focus-visible {
+      transform: scale(1.07);
+      box-shadow: 
+        0 0 26px #09f5e5ff,
+        0 0 60px #09f5e5ff;
+      outline: none;
+    }
+    .search-bar {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .search-bar input[type="search"] {
+      width: 100%;
+      padding: 16px 54px 16px 24px;
+      border-radius: 40px;
+      border: none;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1f1f30;
+      outline: none;
+      box-shadow:
+        inset 0 0 24px #6a11cbcc;
+      user-select: text;
+    }
+    .search-bar input::placeholder {
+      color: #757575cc;
+      font-weight: 600;
+    }
+    .search-bar .material-icons {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 28px;
+      color: #8888cccc;
+      pointer-events: none;
+      user-select: none;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+      gap: 36px;
+      padding: 0 8px;
+      user-select: none;
+    }
+    .product-card {
+      background: #ffffff11;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.17);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+    }
+    .product-card:hover,
+    .product-card:focus-visible {
+      transform: translateY(-12px);
+      box-shadow:
+        0 18px 56px rgba(101, 83, 223, 0.6),
+        0 12px 40px rgba(9, 245, 229, 0.5);
+      outline: none;
+      z-index: 5;
+    }
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      filter: drop-shadow(0 0 6px #452ba1cc);
+      transition: transform 0.3s ease;
+      user-select: none;
+      will-change: transform;
+    }
+    .product-card:hover .product-image,
+    .product-card:focus-visible .product-image {
+      transform: scale(1.08);
+    }
+    .product-details {
+      flex-grow: 1;
+      padding: 20px 24px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #d32de6, #09f5e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    .product-brand {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #bbbcffbb;
+      margin-bottom: 14px;
+    }
+    .product-description {
+      color: #ddddeeaa;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .product-price {
+      font-weight: 900;
+      font-size: 1.3rem;
+      background: linear-gradient(90deg, #09f5e5, #d32de6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: text;
+    }
+    .menu-categories {
+      max-width: 1200px;
+      margin: 0 auto 20px;
+      padding: 0 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      user-select: none;
+    }
+    .menu-categories button {
+      background: rgba(255 255 255 / 0.15);
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .menu-categories button:hover,
+    .menu-categories button:focus-visible {
+      background: rgba(255 255 255 / 0.35);
+      outline-offset: 3px;
+      outline: 2px solid #09f5e5;
+    }
+    .menu-categories button.active {
+      background: #09f5e5;
+      color: #1f1f30;
+      box-shadow: 0 0 10px #09f5e5aa;
+    }
+    footer {
+      text-align: center;
+      margin: 32px 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      user-select: none;
+    }
+    :focus-visible {
+      outline: 3px solid #09f5e5;
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 0 16px;
+      }
+      nav {
+        gap: 18px;
+      }
+      .hero-section {
+        padding: 32px 16px 60px;
+      }
+      .product-details {
+        padding: 16px 18px 28px;
+      }
+      .product-price {
+        font-size: 1.1rem;
+      }
+      .products-grid {
+        gap: 28px;
+      }
+      .menu-categories button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header role="banner" aria-label="Encabezado principal">
+    <div class="logo" tabindex="0">Glow Up Beauty</div>
+    <nav role="navigation" aria-label="Navegación principal">
+      <a href="#productos" tabindex="0">Productos</a>
+      <a href="#sobre" tabindex="0">Sobre Nosotros</a>
+      <a href="#contacto" tabindex="0">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="productos" role="main" tabindex="-1" aria-label="Catálogo de productos">
+    <section class="hero-section" aria-label="Sección principal">
+      <h1>Cosméticos para resaltar tu belleza natural</h1>
+      <p>Descubre productos de las mejores categorías para cuidar tu piel, cabello y estilo.</p>
+    </section>
+
+    <nav class="menu-categories" role="navigation" aria-label="Categorías de productos">
+      <button class="active" data-category="all" type="button" aria-pressed="true">Todos</button>
+      <button data-category="maquillaje" type="button" aria-pressed="false">Maquillaje</button>
+      <button data-category="cuidado-piel" type="button" aria-pressed="false">Cuidado de la piel</button>
+      <button data-category="cuidado-cabello" type="button" aria-pressed="false">Cuidado del cabello</button>
+      <button data-category="fragancias" type="button" aria-pressed="false">Fragancias</button>
+      <button data-category="accesorios" type="button" aria-pressed="false">Accesorios</button>
+    </nav>
+
+    <section class="search-bar" aria-label="Buscador de productos">
+      <label for="searchInput" class="sr-only">Buscar productos por nombre o marca</label>
+      <input type="search" id="searchInput" placeholder="Buscar productos..." autocomplete="off" />
+      <span class="material-icons" aria-hidden="true">search</span>
+    </section>
+
+    <section class="products-grid" id="productsGrid" role="list" aria-live="polite" aria-relevant="additions removals">
+      <!-- Productos cargados dinámicamente -->
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    &copy; 2024 Glow Up Beauty - Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const products = [
+      // Maquillaje
+      {
+        id: "p1",
+        name: "Base Líquida Premium",
+        brand: "L'Oréal",
+        category: "maquillaje",
+        description: "Base líquida ligera para cobertura natural.",
+        price: 78000,
+        image: "https://placehold.co/320x180/6366f1/ffffff?text=Base+Liquida"
+      },
+      {
+        id: "p2",
+        name: "Paleta de Sombras Vibrantes",
+        brand: "NYX",
+        category: "maquillaje",
+        description: "Colores intensos y duraderos para todos los looks.",
+        price: 45000,
+        image: "https://placehold.co/320x180/7b2ff7/ffffff?text=Paleta+Sombras"
+      },
+      {
+        id: "p3",
+        name: "Delineador Líquido Negro",
+        brand: "Maybelline",
+        category: "maquillaje",
+        description: "Delineador de alta precisión y larga duración.",
+        price: 25000,
+        image: "https://placehold.co/320x180/1b2f8f/ffffff?text=Delineador+Liquido"
+      },
+      // Cuidado de la piel
+      {
+        id: "p4",
+        name: "Limpiador Facial Suave",
+        brand: "Neutrogena",
+        category: "cuidado-piel",
+        description: "Limpieza profunda sin resecar la piel.",
+        price: 55000,
+        image: "https://placehold.co/320x180/a0aaff/000000?text=Limpiador+Facial"
+      },
+      {
+        id: "p5",
+        name: "Serum Hidratante",
+        brand: "E.l.f Cosmetics",
+        category: "cuidado-piel",
+        description: "Hidratación intensiva para piel radiante.",
+        price: 40000,
+        image: "https://placehold.co/320x180/635aff/ffffff?text=Serum+Hidratante"
+      },
+      // Cuidado del cabello
+      {
+        id: "p6",
+        name: "Shampoo Reparador",
+        brand: "Nivea",
+        category: "cuidado-cabello",
+        description: "Repara y fortalece el cabello maltratado.",
+        price: 32000,
+        image: "https://placehold.co/320x180/483d8b/ffffff?text=Shampoo+Reparador"
+      },
+      // Fragancias
+      {
+        id: "p7",
+        name: "Perfume Floral",
+        brand: "Revlon",
+        category: "fragancias",
+        description: "Aromas frescos y delicados para el día a día.",
+        price: 120000,
+        image: "https://placehold.co/320x180/fa58b6/ffffff?text=Perfume+Floral"
+      },
+      // Accesorios
+      {
+        id: "p8",
+        name: "Set de Brochas Profesionales",
+        brand: "MAC Cosmetics",
+        category: "accesorios",
+        description: "Herramientas precisas para maquillaje perfecto.",
+        price: 95000,
+        image: "https://placehold.co/320x180/8a2be2/ffffff?text=Set+Brochas"
+      }
+    ];
+
+    const productsGrid = document.getElementById('productsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const categoryButtons = document.querySelectorAll('.menu-categories button');
+
+    function displayProducts(productsToShow) {
+      productsGrid.innerHTML = '';
+      if (productsToShow.length === 0) {
+        productsGrid.innerHTML = '<p style="text-align:center; color:#e0dffc; font-weight:700; font-size:1.2rem;">No se encontraron productos.</p>';
+        return;
+      }
+      productsToShow.forEach(product => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'listitem');
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name} de la marca ${product.brand}" class="product-image" loading="lazy" decoding="async" />
+          <div class="product-details">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-brand">${product.brand}</
